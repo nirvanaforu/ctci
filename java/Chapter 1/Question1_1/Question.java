@@ -1,5 +1,8 @@
 package Question1_1;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Question {
 
 	public static boolean isUniqueChars(String str) {
@@ -28,10 +31,24 @@ public class Question {
 		return true;
 	}
 	
+	public static boolean isUniqueCharsWithHash(String str) {
+		Set<Character> charSet = new HashSet<Character>();
+		for (int i=0; i<str.length();i++) {
+			if (charSet.contains(str.charAt(i))) {
+				return false;
+			} else {
+				charSet.add(str.charAt(i));
+			}
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) {
 		String[] words = {"abcde", "hello", "apple", "kite", "padle"};
 		for (String word : words) {
-			System.out.println(word + ": " + isUniqueChars(word) + " " + isUniqueChars2(word));
+			System.out.println(word + " has unique characters or not" +
+					": " + isUniqueChars(word) + " " + isUniqueChars2(word) 
+					+ " " + isUniqueCharsWithHash(word));
 		}
 	}
 
