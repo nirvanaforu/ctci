@@ -29,7 +29,7 @@ public class QuestionB {
 			String word1 = pair[0];
 			String word2 = pair[1];
 			boolean anagram = permutation(word1, word2);
-			System.out.println(word1 + ", " + word2 + ": " + anagram);
+			System.out.println(word1 + ", " + word2 + " are permutations : " + anagram);
 		}
 	}
 }
