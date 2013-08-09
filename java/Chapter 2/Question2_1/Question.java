@@ -1,6 +1,8 @@
 package Question2_1;
 
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 
 import CtCILibrary.AssortedMethods;
 import CtCILibrary.LinkedListNode;
@@ -17,14 +19,21 @@ public class Question {
 		}
 	}
 
+	/**
+	 * time O(n), space O(n)
+	 * @param n
+	 */
 	public static void deleteDupsA(LinkedListNode n) {
-		Hashtable table = new Hashtable();
+		//Hashtable table = new Hashtable();
+	    Set nodeSet = new HashSet();
 		LinkedListNode previous = null;
 		while (n != null) {
-			if (table.containsKey(n.data)) {
+			//if (table.containsKey(n.data)) {
+		    if (nodeSet.contains(n.data)) {
 				previous.next = n.next;
 			} else {
-				table.put(n.data, true);
+				//table.put(n.data, true);
+			    nodeSet.add(n.data);    
 				previous = n;
 			}
 			n = n.next;
@@ -82,10 +91,31 @@ public class Question {
 			}
 			current = current.next;
 		}
-	}	
+	}
+	
+	/**
+	 * time: O(n^2), constant space
+	 * @param head
+	 */
+	public static void ylDeleteDup(LinkedListNode head) {
+	    if (head == null)  return;
+	    LinkedListNode current = head;
+	    while (current != null) {
+	        LinkedListNode runner = current;
+	        while (runner.next != null) {
+	            if (runner.next.data == current.data) {
+	                runner.next = runner.next.next;
+	            } else {
+	                runner = runner.next;
+	            }
+	        }
+	        current = current.next;
+	    }
+	}
 	
 	public static void main(String[] args) {	
-		LinkedListNode first = new LinkedListNode(0, null, null); //AssortedMethods.randomLinkedList(1000, 0, 2);
+		//LinkedListNode first = new LinkedListNode(0, null, null); //AssortedMethods.randomLinkedList(1000, 0, 2);
+	    LinkedListNode first = AssortedMethods.randomLinkedList(10, 0, 5);
 		LinkedListNode head = first;
 		LinkedListNode second = first;
 		for (int i = 1; i < 8; i++) {
@@ -96,9 +126,13 @@ public class Question {
 		}
 		System.out.println(head.printForward());
 		LinkedListNode clone = head.clone();
+		LinkedListNode ylClone = head.clone();
 		deleteDupsB(head);
 		deleteDupsC(clone);
-		System.out.println(tapB);
-		System.out.println(tapC);
+		ylDeleteDup(ylClone);
+		
+		System.out.println(head.printForward());
+		System.out.println(clone.printForward());
+		System.out.println(ylClone.printForward());
 	}
 }

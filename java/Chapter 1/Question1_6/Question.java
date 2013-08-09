@@ -4,6 +4,30 @@ import CtCILibrary.*;
 
 public class Question {
 
+	/*
+	 * not really understand how the index changes
+	 */
+	public static void ylRotate(int[][] matrix, int n) {
+		for (int i=0; i<(n/2); i++) {
+			for (int j=0; j<(n+1)/2; j++)
+			{
+				int tmp = matrix[i][j];
+				matrix[i][j]= matrix[n-1-j][i];
+				matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
+				matrix[n-1-i][n-1-j] = matrix[j][n-1-i];
+				matrix[j][n-1-i] = tmp;
+			}
+		}
+	}
+	
+	private static void exchange(int a, int b, int c, int d) {
+		int tmp =a;
+		a=b;
+		b=c;
+		c=d;
+		d=tmp;
+	}
+	
 	public static void rotate(int[][] matrix, int n) {
 		for (int layer = 0; layer < n / 2; ++layer) {
 			int first = layer;
@@ -28,9 +52,10 @@ public class Question {
 	}
 	
 	public static void main(String[] args) {
-		int[][] matrix = AssortedMethods.randomMatrix(10, 10, 0, 9);
+		int[][] matrix = AssortedMethods.randomMatrix(5, 5, 0, 9);
 		AssortedMethods.printMatrix(matrix);
-		rotate(matrix, 10);
+		//rotate(matrix, 5);
+		ylRotate(matrix, 5);
 		System.out.println();
 		AssortedMethods.printMatrix(matrix);
 	}

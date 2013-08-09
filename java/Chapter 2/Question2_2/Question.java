@@ -4,7 +4,42 @@ import CtCILibrary.*;
 
 public class Question {
 
-	public static int nthToLastR1(LinkedListNode head, int n) {
+	/**
+	 * No recursion: YL version
+	 * @param head
+	 * @param n
+	 * @return
+	 */
+    public static int ylNthToLast(LinkedListNode head, int n) {
+        if (n==0 || head ==null) {
+            return 0;
+        }
+        LinkedListNode p1 = head;
+        LinkedListNode p2 = head;
+        
+        int counter=0;
+        while(p1 != null && counter<n) {
+            p1=p1.next;
+            counter++;
+        }
+        if (counter<n && p1==null) 
+            System.out.println("list length less than "+n);
+        while(p1 !=null)
+        {
+            p1=p1.next;
+            p2=p2.next;
+        }
+        System.out.println(n+"th to last node is "+ p2.data);
+        return 1;
+    }
+    
+    /**
+     * Recursion version: good&simple one
+     * @param head
+     * @param n
+     * @return
+     */
+    public static int nthToLastR1(LinkedListNode head, int n) {
 		if (n == 0 || head == null) {
 			return 0;
 		}
@@ -78,10 +113,11 @@ public class Question {
 	public static void main(String[] args) {
 		LinkedListNode head = AssortedMethods.randomLinkedList(10, 0, 10);
 		System.out.println(head.printForward());
-		int nth = 3;
-		IntWrapper wr = new IntWrapper();
+		int nth = 1;
+		//IntWrapper wr = new IntWrapper();
 		LinkedListNode n = nthToLastR3(head, nth);
 		nthToLastR1(head, nth);
+		ylNthToLast(head, nth);
 		if (n != null) {
 			System.out.println(nth + "th to last node is " + n.data);
 		} else {

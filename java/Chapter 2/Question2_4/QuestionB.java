@@ -4,7 +4,45 @@ import CtCILibrary.LinkedListNode;
 
 public class QuestionB {
 
-	public static LinkedListNode partition(LinkedListNode node, int x) {
+	/**
+	 * time: O(n), constant space. tricky to handle pointer correctly, 
+	 * don't need to move previous node if appending to tail  
+	 */
+    public static LinkedListNode ylPartition(LinkedListNode node, int x) {
+        if (node==null) return null;
+        LinkedListNode tail = node;        
+        while(tail.next != null)
+            tail = tail.next;
+        LinkedListNode pivot = tail;
+        LinkedListNode head = node;
+        LinkedListNode previous = node;
+        while(node != pivot) {
+            LinkedListNode next = node.next;
+            if (node.data >= x) {
+                if (node == head) {
+                   node.next=null;
+                } else {
+                    previous.next = node.next;
+                }
+                tail.next = node;
+                tail = tail.next;
+                tail.next = null;
+            } else {
+                previous = node;//don't move previous if current node appended to tail
+            }
+            node = next;
+        }
+        return head;
+    }
+    
+    /** 
+	 * create two list to store less and greater elements and then merge them together
+	 * time O(n), space O(n)
+	 * @param node
+	 * @param x
+	 * @return
+	 */
+    public static LinkedListNode partition(LinkedListNode node, int x) {
 		LinkedListNode beforeStart = null;
 		LinkedListNode afterStart = null;
 		
@@ -14,7 +52,7 @@ public class QuestionB {
 			if (node.data < x) {
 				/* Insert node into start of before list */
 				node.next = beforeStart;
-				beforeStart = node;	
+				beforeStart = node;	//keep beforeStart as the head of 1st half of list
 			} else {
 				/* Insert node into front of after list */
 				node.next = afterStart;
@@ -57,6 +95,10 @@ public class QuestionB {
 		
 		LinkedListNode h = partition(head, 7);
 		System.out.println(h.printForward());
+		
+		LinkedListNode t = ylPartition(h, 7);
+        System.out.println(t.printForward());
+		
 	}
 
 }
