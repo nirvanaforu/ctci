@@ -15,8 +15,10 @@ public class Tower {
 	}
 	
 	public void add(int d) {
-		if (!disks.isEmpty() && disks.peek() <= d) {
-			System.out.println("Error placing disk " + d);
+		
+	    if (!disks.isEmpty() && disks.peek() <= d) {
+			//only smaller plate can be placed on top 
+	        System.out.println("Error placing disk " + d);
 		} else {
 			disks.push(d);
 		}

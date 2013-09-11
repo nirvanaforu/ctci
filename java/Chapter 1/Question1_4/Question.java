@@ -2,6 +2,11 @@ package Question1_4;
 
 import CtCILibrary.AssortedMethods;
 
+/**
+ * trick: after assuming sufficient space, 
+ * starting from end instead of beginning to manipulate index easily
+ *
+ */
 public class Question {
 	// Assume string has sufficient free space at the end
 	public static void replaceSpaces(char[] str, int length) {

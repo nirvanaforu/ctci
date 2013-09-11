@@ -2,7 +2,40 @@ package Question2_5;
 import CtCILibrary.LinkedListNode;
 
 public class QuestionB {
-	private static int length(LinkedListNode l) {
+	
+    private static LinkedListNode YLAddLists(LinkedListNode l1, LinkedListNode l2) {
+        LinkedListNode currL1 = l1;
+        LinkedListNode currL2 = l2;
+        LinkedListNode result = null;
+        LinkedListNode tail = null;
+        int carry=0;
+        
+        while(currL1 != null && currL2 != null && carry !=0) {
+            int sum =carry;
+            if (currL1 != null) {
+                sum +=currL1.data;
+                currL1=currL1.next;
+            }
+            if (currL2 != null) {
+                sum +=currL2.data;
+                currL2=currL2.next;
+            }
+            carry = sum%10;
+            sum=sum/10;
+            LinkedListNode tmp = new LinkedListNode(sum, null, null);
+            if (result == null) {
+                result = tmp;
+                tail = result;
+            } else {
+                tail.next = tmp;
+                tail=tail.next;
+            }
+        }
+        return result;        
+    }
+    
+    //////////////////////////////////////////////////////////////////////////////
+    private static int length(LinkedListNode l) {
 		if (l == null) {
 			return 0;
 		} else {
@@ -78,12 +111,19 @@ public class QuestionB {
 		LinkedListNode lB2 = new LinkedListNode(9, null, lB1);
 		LinkedListNode lB3 = new LinkedListNode(1, null, lB2);	
 		
-		LinkedListNode list3 = addLists(lA1, lB1);
+		LinkedListNode list3 = addLists(lA1, lB1);		
 		
 		System.out.println("  " + lA1.printForward());		
 		System.out.println("+ " + lB1.printForward());			
 		System.out.println("= " + list3.printForward());	
 		
+		
+		LinkedListNode list4 = YLAddLists(lA1, lB1);
+		System.out.println("  " + lA1.printForward());        
+        System.out.println("+ " + lB1.printForward());          
+        System.out.println("= " + list3.printForward());
+        
+        
 		int l1 = linkedListToInt(lA1);
 		int l2 = linkedListToInt(lB1);
 		int l3 = linkedListToInt(list3);

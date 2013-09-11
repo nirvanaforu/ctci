@@ -4,6 +4,7 @@ import CtCILibrary.LinkedListNode;
 
 import java.util.Stack;
 
+//Only need to check first half of the list if it's palindrome or not
 public class QuestionB {
 	public static boolean isPalindrome(LinkedListNode head) {
 		LinkedListNode fast = head;

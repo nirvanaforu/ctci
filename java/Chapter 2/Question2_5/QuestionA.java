@@ -5,6 +5,41 @@ import CtCILibrary.LinkedListNode;
 
 public class QuestionA {
 
+    /**
+     * trick: need to maintain a tail node to append new sum
+     * @param l1
+     * @param l2
+     * @return
+     */
+    private static LinkedListNode ylAddLists(
+            LinkedListNode l1, LinkedListNode l2) {
+        LinkedListNode result = null;
+        LinkedListNode tail = null;
+        int carry =0;
+        while(l1!=null && l2!=null && carry !=0) {
+            int sum=carry;
+            if (l1!=null) {
+                sum+=l1.data;
+                l1=l1.next;
+            }
+            if (l2!=null) {
+                sum+=l2.data;
+                l2=l2.next;
+            }
+            carry = sum%10;
+            sum/=10;
+            LinkedListNode tmp = new LinkedListNode(sum, null, null);
+            if (result == null) {
+                result = tmp;
+                tail = result;
+            } else {
+                tail.next = tmp;
+                tail=tail.next;
+            }
+        }
+        return result;
+    }
+    /////////////////////////////////////////////////////////////////
 	private static LinkedListNode addLists(
 			LinkedListNode l1, LinkedListNode l2, int carry) {
 		if (l1 == null && l2 == null && carry == 0) {
@@ -50,7 +85,10 @@ public class QuestionA {
 		
 		System.out.println("  " + lA1.printForward());		
 		System.out.println("+ " + lB1.printForward());			
-		System.out.println("= " + list3.printForward());	
+		System.out.println("= " + list3.printForward());
+		
+		LinkedListNode list4 = ylAddLists(lA1, lB1);
+		System.out.println("= " + list3.printForward());
 		
 		int l1 = linkedListToInt(lA1);
 		int l2 = linkedListToInt(lB1);

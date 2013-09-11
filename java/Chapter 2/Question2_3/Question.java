@@ -10,15 +10,15 @@ public class Question {
 			return false; // Failure
 		} 
 		LinkedListNode next = n.next; 
-		n.data = next.data; 
-		n.next = next.next; 
+		n.data = next.data; // copy n next's data to be current one 
+		n.next = next.next; // delete next node of n
 		return true;
 	}
 	
 	public static void main(String[] args) {
 		LinkedListNode head = AssortedMethods.randomLinkedList(10, 0, 10);
 		System.out.println(head.printForward());
-		deleteNode(head.next.next.next.next); // delete node 4
+		deleteNode(head.next.next.next.next); // delete node 5
 		System.out.println(head.printForward());
 	}
 

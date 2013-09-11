@@ -1,6 +1,8 @@
 package Question4_2;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class Question {
 	public enum State {
@@ -11,9 +13,20 @@ public class Question {
 	{
 		Graph g = createNewGraph();
 		Node[] n = g.getNodes();
-		Node start = n[3];
+		Node start = n[0];
 		Node end = n[5];
-		System.out.println(search(g, start, end));
+		//created to record the route
+		LinkedList<Node> route = new LinkedList<Node>();
+		System.out.println("Node:"+start.getVertex()+" and Node:"+end.getVertex()+" has a route to connect");
+	    boolean route_exist = search(g, start, end, route);
+	    if (route_exist) {
+	        System.out.println("route exists as follows:");
+	        for (Node nn: route) {
+	            System.out.println(nn.getVertex()+"-->");
+	        }
+	    } else {
+	        System.out.println("route NOT exists");
+	    }		
 	}
 	
 	public static Graph createNewGraph()
@@ -39,28 +52,34 @@ public class Question {
 		return g;
 	}
 
-    public static boolean search(Graph g,Node start,Node end) {  
+    // use queue for BFS, stack for DFS
+	public static boolean search(Graph g,Node start,Node end, LinkedList<Node> route) {  
         LinkedList<Node> q = new LinkedList<Node>();
+        //Queue<Node> q = new LinkedList<Node>();        
         for (Node u : g.getNodes()) {
             u.state = State.Unvisited;
         }
         start.state = State.Visiting;
         q.add(start);
+        route.addLast(start);
         Node u;
         while(!q.isEmpty()) {
             u = q.removeFirst();
+            //u = q.remove();
             if (u != null) {
-	            for (Node v : u.getAdjacent()) {
-	                if (v.state == State.Unvisited) {
+	            for (Node v : u.getAdjacent()) {	                
+	                if (v.state == State.Unvisited) {	                    
 	                    if (v == end) {
 	                        return true;
 	                    } else {
 	                        v.state = State.Visiting;
+	                        route.addLast(v);
 	                        q.add(v);
 	                    }
 	                }
 	            }
 	            u.state = State.Visited;
+	            route.remove(u);
             }
         }
         return false;

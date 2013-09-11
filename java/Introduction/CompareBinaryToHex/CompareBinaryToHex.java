@@ -1,5 +1,5 @@
-package CompareBinaryToHex;
 
+package CompareBinaryToHex;
 public class CompareBinaryToHex {
 
 	public static int digitToValue(char c) {

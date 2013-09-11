@@ -6,6 +6,7 @@ public class Question {
 
 	/*
 	 * not really understand how the index changes
+	 * could start with one example to understand the index changes
 	 */
 	public static void ylRotate(int[][] matrix, int n) {
 		for (int i=0; i<(n/2); i++) {
